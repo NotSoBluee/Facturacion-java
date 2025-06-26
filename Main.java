@@ -12,6 +12,8 @@ public class Main {
             System.out.println("2. Agregar producto");
             System.out.println("3. Listar clientes");
             System.out.println("4. Listar productos");
+            System.out.println("5. Crear factura");
+
             System.out.println("0. Salir");
             System.out.print("Opción: ");
             opcion = sc.nextInt();
@@ -38,7 +40,40 @@ public class Main {
                 case 4:
                     gestor.listarProductos();
                     break;
-                case 0:
+                case 5:
+                     if (gestor.clientes.size() == 0 || gestor.productos.size() == 0) {
+                        System.out.println("⚠️ Debés cargar al menos un cliente y un producto.");
+                        break;
+                     }
+
+                      // Mostrar clientes y elegir uno
+                      gestor.listarClientes();
+                     System.out.print("Elegí el número de cliente: ");
+                        int indiceCliente = sc.nextInt();
+                      Cliente cliente = gestor.clientes.get(indiceCliente);
+
+                      Factura factura = new Factura(cliente);
+
+                      // Agregar productos hasta que diga que no
+                     String continuar;
+                      do {
+                     gestor.listarProductos();
+                      System.out.print("Número de producto: ");
+                    int indiceProd = sc.nextInt();
+                      System.out.print("Cantidad: ");
+                     int cantidad = sc.nextInt();
+                      Producto prod = gestor.productos.get(indiceProd);
+
+                      factura.agregarItem(prod, cantidad);
+
+                     System.out.print("¿Agregar otro producto? (s/n): ");
+                       continuar = sc.next();
+                       } while (continuar.equalsIgnoreCase("s"));
+
+                      factura.mostrarFactura();
+                      break;
+
+              case 0:
                     System.out.println("👋 Cerrando...");
                     break;
                 default:
