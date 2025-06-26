@@ -52,9 +52,13 @@ public class Factura {
     return calcularSubtotal() + calcularIVA();
     }
     public void guardarEnArchivo() {
+    // ✅ Línea 1: asegurarse que exista la carpeta
+    new java.io.File("facturas").mkdirs();
+
+    // ✅ Línea 2: nombrar el archivo dentro de esa carpeta
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
     String fechaHora = LocalDateTime.now().format(dtf);
-    String nombreArchivo = "factura_" + fechaHora + ".txt";
+    String nombreArchivo = "facturas/factura_" + fechaHora + ".txt";
 
     try (FileWriter writer = new FileWriter(nombreArchivo)) {
         writer.write("🧾 Factura para " + cliente + "\n\n");
@@ -66,8 +70,11 @@ public class Factura {
         writer.write(String.format("TOTAL: $%.2f\n", calcularTotal()));
         System.out.println("📁 Factura guardada como: " + nombreArchivo);
     } catch (IOException e) {
-        System.out.println("❌ Error al guardar la factura.");
+        System.out.println(" Error al guardar la factura.");
     }
 }
 
+
+
+    
 }

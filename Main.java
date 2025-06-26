@@ -13,6 +13,8 @@ public class Main {
             System.out.println("3. Listar clientes");
             System.out.println("4. Listar productos");
             System.out.println("5. Crear factura");
+            System.out.println("6. Ver facturas guardadas");
+
 
             System.out.println("0. Salir");
             System.out.print("Opción: ");
@@ -74,8 +76,10 @@ public class Main {
                       factura.guardarEnArchivo();
 
                       break;
-
-              case 0:
+                case 6:
+                    gestor.listarFacturasGuardadas();
+                     break;
+                case 0:
                     System.out.println(" Cerrando...");
                     break;
                 default:

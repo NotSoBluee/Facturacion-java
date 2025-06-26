@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 
 public class GestorFacturacion {
@@ -27,4 +28,25 @@ public class GestorFacturacion {
             System.out.println(" - " + p);
         }
     }
+    public void listarFacturasGuardadas() {
+    File carpeta = new File("facturas");
+    File[] archivos = carpeta.listFiles((dir, name) -> name.endsWith(".txt"));
+
+    if (archivos == null || archivos.length == 0) {
+        System.out.println(" No hay facturas guardadas.");
+        return;
+    }
+
+    for (File archivo : archivos) {
+        System.out.println("\n Leyendo: " + archivo.getName());
+        try (BufferedReader reader = new BufferedReader(new FileReader(archivo))) {
+            String linea;
+            while ((linea = reader.readLine()) != null) {
+                System.out.println(linea);
+            }
+        } catch (IOException e) {
+            System.out.println(" Error al leer: " + archivo.getName());
+        }
+    }
+}
 }
