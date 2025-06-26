@@ -48,6 +48,38 @@ Está siendo desarrollado en versiones, agregando funcionalidades reales paso a 
 
 ---
 
+# 🧾 Sistema de Facturación en Java
+
+## 💬 Descripción
+
+Proyecto desarrollado por versiones para aprender y mostrar un sistema de facturación simple en Java.  
+Desde consola y con clases limpias. Cada versión agrega más lógica empresarial real.
+
+---
+
+## 🧱 Clases actuales
+
+| Clase            | Descripción                                       |
+|------------------|---------------------------------------------------|
+| `Producto`       | Representa un producto con nombre y precio        |
+| `Cliente`        | Representa un cliente con nombre y CUIT           |
+| `GestorFacturacion` | Permite agregar/listar productos y clientes     |
+| `ItemFactura`    | Relaciona producto + cantidad dentro de factura   |
+| `Factura`        | Contiene cliente y varios `ItemFactura`           |
+| `Main`           | Menú por consola para operar                      |
+
+---
+
+### Versión 0.3
+- Se agregan métodos para:
+  - Calcular subtotal
+  - Calcular IVA (21%)
+  - Calcular total
+- El método `mostrarFactura()` ahora imprime todo el desglose completo
+
+---
+
+
 ##  Cómo ejecutar
 
 Compilar:

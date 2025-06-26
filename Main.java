@@ -71,6 +71,8 @@ public class Main {
                        } while (continuar.equalsIgnoreCase("s"));
 
                       factura.mostrarFactura();
+                      factura.guardarEnArchivo();
+
                       break;
 
               case 0:
