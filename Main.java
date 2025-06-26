@@ -42,7 +42,7 @@ public class Main {
                     break;
                 case 5:
                      if (gestor.clientes.size() == 0 || gestor.productos.size() == 0) {
-                        System.out.println("⚠️ Debés cargar al menos un cliente y un producto.");
+                        System.out.println(" Debés cargar al menos un cliente y un producto.");
                         break;
                      }
 
@@ -74,10 +74,10 @@ public class Main {
                       break;
 
               case 0:
-                    System.out.println("👋 Cerrando...");
+                    System.out.println(" Cerrando...");
                     break;
                 default:
-                    System.out.println("❌ Opción inválida.");
+                    System.out.println(" Opción inválida.");
             }
 
         } while (opcion != 0);
