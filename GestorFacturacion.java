@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GestorFacturacion {
     ArrayList<Cliente> clientes = new ArrayList<>();
@@ -48,5 +49,50 @@ public class GestorFacturacion {
             System.out.println(" Error al leer: " + archivo.getName());
         }
     }
+    }
+        public Producto buscarProductoPorNombre(String nombre) {
+        for (Producto p : productos) {
+        if (p.getNombre().equalsIgnoreCase(nombre)) {
+            return p;
+        }
+    }
+    return null;
+    }
+        public Cliente buscarClientePorNombre(String nombre) {
+        for (Cliente c : clientes) {
+        if (c.getNombre().equalsIgnoreCase(nombre)) {
+            return c;
+        }
+    }
+    return null;
+    }
+    public void guardarFactura(Factura factura) {
+    String nombreArchivo = "factura_" + System.currentTimeMillis() + ".txt";
+
+    try (java.io.PrintWriter writer = new java.io.PrintWriter(nombreArchivo)) {
+        writer.println("Cliente: " + factura.getCliente().getNombre());
+        writer.println("CUIT: " + factura.getCliente().getCuit());
+        writer.println("----------------------------");
+        for (ItemFactura item : factura.getItems()) {
+            writer.println(item.getCantidad() + " x " + item.getProducto().getNombre()
+                + " = $" + (item.getCantidad() * item.getProducto().getPrecio()));
+        }
+        writer.println("----------------------------");
+        writer.printf("Subtotal: $%.2f%n", factura.calcularSubtotal());
+        writer.printf("IVA (21%%): $%.2f%n", factura.calcularIVA());
+        writer.printf("Total: $%.2f%n", factura.calcularTotal());
+    } catch (Exception e) {
+        System.out.println("Error al guardar la factura: " + e.getMessage());
+    }
+    }
+        public List<Cliente> getClientes() {
+        return clientes;
 }
+
+        public List<Producto> getProductos() {
+        return productos;
+}
+
+
+
 }

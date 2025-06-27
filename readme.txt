@@ -48,7 +48,7 @@ Está siendo desarrollado en versiones, agregando funcionalidades reales paso a 
 
 ---
 
-### Versión 0.3
+## Versión 0.3
 - Se agregan métodos para:
   - Calcular subtotal
   - Calcular IVA (21%)
@@ -56,6 +56,38 @@ Está siendo desarrollado en versiones, agregando funcionalidades reales paso a 
 - El método `mostrarFactura()` ahora imprime todo el desglose completo
 
 ---
+##  Versión 0.4
+- Guardar la factura generada en archivo `.txt`  
+- Archivo con timestamp y estructura legible
+
+---
+##  Versión 0.5
+- Nueva opción en el menú: ver facturas anteriores  
+- Lee todos los archivos `.txt` guardados en carpeta `/facturas`  
+- Muestra el contenido en consola
+
+**Versión actual: 1.0**  
+GUI
+---
+
+## Descripción
+
+Este es un sistema de facturación simple desarrollado en Java, que permite:
+
+- Registrar productos
+- Registrar clientes
+- Crear facturas con múltiples ítems
+- Calcular subtotal, IVA (21%) y total
+- Guardar las facturas en archivos `.txt`
+- Interfaz gráfica construida con `Swing`
+
+---
+
+- Java 17+
+- Swing (interfaz gráfica)
+- Git y GitHub para control de versiones
+- Visual Studio Code
+
 
 
 ##  Cómo ejecutar
