@@ -19,7 +19,7 @@ public class GestorFacturacion {
 
 
     public void agregarProducto(String nombre, double precio) {
-        productos.add(new Producto(id, nombre, precio));
+        productos.add(new Producto(nombre, precio));
         System.out.println(" Producto agregado.");
     }
 

@@ -88,7 +88,15 @@ Este es un sistema de facturación simple desarrollado en Java, que permite:
 - Git y GitHub para control de versiones
 - Visual Studio Code
 
+## v 1.1 NO Funcional
 
+agregue un par de cosas para completar el crud y estoy teniendo una tanda de problemitas
+nada que no pueda manejar pero subo esto para tener un checkpoint 
+
+## V 1.2 Funcional! 
+
+- Crud completo!!!
+con todoas sus debidas ventanas
 
 ##  Cómo ejecutar
 

@@ -1,13 +1,18 @@
 public class Producto {
+    private int id;
     private final String nombre;
     private final double precio;
-    private final int id;
 
-    public Producto(int id, String nombre, double precio) {
-    this.id = id;
+    public Producto(String nombre, double precio) {
     this.nombre = nombre;
     this.precio = precio;
 }
+
+    public Producto(int id, String nombre, double precio) {
+        this.id = id;
+        this.nombre = nombre;
+        this.precio = precio;
+    }
 
     @Override
     public String toString() {
@@ -23,6 +28,10 @@ public class Producto {
     }
     public int getId() {
         return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 }
