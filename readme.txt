@@ -95,8 +95,24 @@ nada que no pueda manejar pero subo esto para tener un checkpoint
 
 ## V 1.2 Funcional! 
 
-- Crud completo!!!
-con todoas sus debidas ventanas
+- Crud solo falta editar producto!
+con todoas sus debidas ventanas menos esa jajaja
+
+# Versión 1.3 Cerramos
+
+Se puede:
+
+- [x] Crear producto con nombre y precio
+- [x] Listar productos guardados en la base de datos
+- [x] Eliminar producto por ID
+- [x] Editar producto existente por ID
+- [x] Interfaz gráfica con campos y botones funcionales
+
+---
+# Version Final.
+
+Decido terminar el proyecto aqui(por ahora)y encarar otros proyectos.
+cosas a arreglar. el layout de agregar producto!
 
 ##  Cómo ejecutar
 
@@ -106,4 +122,4 @@ Compilar:
 javac *.java
 
 Ejecutar:
-java Main
+java -cp ".;sqlite-jdbc-3.36.0.3.jar" Main 

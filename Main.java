@@ -6,7 +6,6 @@ public class Main {
         GestorFacturacion gestor = new GestorFacturacion();
        
         new VentanaPrincipal(gestor);
-        new VentanaProducto(gestor);
         
 
 

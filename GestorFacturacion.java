@@ -3,9 +3,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.Statement;
 
 public class GestorFacturacion {
     ArrayList<Cliente> clientes = new ArrayList<>();
@@ -170,6 +170,24 @@ public boolean agregarProducto(Producto producto) {
         } catch (SQLException e) {
             System.out.println("⚠ Error al actualizar producto: " + e.getMessage());
             return false;
+    }
+}
+    public boolean editarProducto(Producto p) {
+    String sql = "UPDATE productos SET nombre = ?, precio = ? WHERE id = ?";
+
+    try (Connection conn = ConexionBD.conectar();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+        pstmt.setString(1, p.getNombre());
+        pstmt.setDouble(2, p.getPrecio());
+        pstmt.setInt(3, p.getId());
+
+        int filas = pstmt.executeUpdate();
+        return filas > 0;
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
     }
 }
 

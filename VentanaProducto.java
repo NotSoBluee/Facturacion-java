@@ -1,5 +1,7 @@
 import java.awt.*;
+import java.util.List;
 import javax.swing.*;
+
 
 public class VentanaProducto extends JFrame {
     private JTextField campoNombre;
@@ -9,6 +11,11 @@ public class VentanaProducto extends JFrame {
     private JTextArea areaProductos;
     private JButton btnEliminar;
     private JTextField campoEliminarId;
+    private JTextField campoEditarId;
+    private JTextField campoNuevoNombre;
+    private JTextField campoNuevoPrecio;
+    private JButton btnEditar;
+
 
 
 
@@ -19,16 +26,23 @@ public class VentanaProducto extends JFrame {
     public VentanaProducto(GestorFacturacion gestor) {
         this.gestor = gestor;
 
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         
 
         setTitle("Gestión de Productos");
-        setSize(400, 200);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
+        
 
         // Panel principal
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(3, 2, 10, 10));
+        panel.setLayout(new GridLayout(10, 2, 10, 10));
 
         // Campos y etiquetas
         panel.add(new JLabel("Nombre:"));
@@ -45,6 +59,20 @@ public class VentanaProducto extends JFrame {
         panel.add(new JLabel());
         btnAgregar = new JButton("Agregar Producto");
         btnListar = new JButton("Listar Productos");
+        btnListar.addActionListener(e -> {
+        
+        List<Producto> productos = gestor.obtenerProductos(); // suponiendo que tenés este método
+        
+        StringBuilder sb = new StringBuilder();
+        for (Producto p : productos) {
+        sb.append("ID: ").append(p.getId())
+          .append(" | Nombre: ").append(p.getNombre())
+          .append(" | Precio: ").append(p.getPrecio())
+          .append("\n");
+        }
+        areaProductos.setText(sb.toString());
+        });
+
 
         panel.add(btnAgregar);
         panel.add(btnListar);
@@ -56,6 +84,22 @@ public class VentanaProducto extends JFrame {
         panel.add(btnEliminar);
         panel.add(new JLabel()); // espacio vacío para que quede alineado
 
+        panel.add(new JLabel("ID a editar:"));
+        campoEditarId = new JTextField();
+        panel.add(campoEditarId);
+
+        panel.add(new JLabel("Nuevo nombre:"));
+        campoNuevoNombre = new JTextField();
+        panel.add(campoNuevoNombre);
+
+        panel.add(new JLabel("Nuevo precio:"));
+        campoNuevoPrecio = new JTextField();
+        panel.add(campoNuevoPrecio);
+
+        btnEditar = new JButton("Editar Producto");
+        panel.add(btnEditar);
+        panel.add(new JLabel()); // espacio para alinear
+
 
 
 
@@ -63,11 +107,13 @@ public class VentanaProducto extends JFrame {
         panel.add(new JLabel());
 
         add(panel); // Agrega panel al frame
-
+        
         areaProductos = new JTextArea(10, 30);
         areaProductos.setEditable(false);
         add(new JScrollPane(areaProductos), BorderLayout.SOUTH);
-
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
 
         // Acción del botón
         btnAgregar.addActionListener(e -> {
@@ -139,8 +185,42 @@ public class VentanaProducto extends JFrame {
         }
         });
 
+        btnEditar.addActionListener(e -> {
+    String idTexto = campoEditarId.getText();
+    String nuevoNombre = campoNuevoNombre.getText();
+    String nuevoPrecioTexto = campoNuevoPrecio.getText();
+
+    if (idTexto.isEmpty() || nuevoNombre.isEmpty() || nuevoPrecioTexto.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Completá todos los campos para editar.");
+        return;
+    }
+
+    try {
+        int id = Integer.parseInt(idTexto);
+        double nuevoPrecio = Double.parseDouble(nuevoPrecioTexto);
+
+        Producto actualizado = new Producto(id, nuevoNombre, nuevoPrecio);
+        boolean exito = gestor.editarProducto(actualizado);
+
+        if (exito) {
+            JOptionPane.showMessageDialog(null, "Producto actualizado.");
+            campoEditarId.setText("");
+            campoNuevoNombre.setText("");
+            campoNuevoPrecio.setText("");
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontró un producto con ese ID.");
+        }
+
+    } catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(null, "ID o precio inválido.");
+    }
+});
 
 
         setVisible(true); // Mostrar la ventana
-    }
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
+
+}
 }
