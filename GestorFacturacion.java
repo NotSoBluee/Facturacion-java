@@ -1,6 +1,11 @@
 import java.io.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Statement;
 
 public class GestorFacturacion {
     ArrayList<Cliente> clientes = new ArrayList<>();
@@ -11,8 +16,10 @@ public class GestorFacturacion {
         System.out.println(" Cliente agregado.");
     }
 
+
+
     public void agregarProducto(String nombre, double precio) {
-        productos.add(new Producto(nombre, precio));
+        productos.add(new Producto(id, nombre, precio));
         System.out.println(" Producto agregado.");
     }
 
@@ -91,6 +98,79 @@ public class GestorFacturacion {
 
         public List<Producto> getProductos() {
         return productos;
+}
+public boolean agregarProducto(Producto producto) {
+    String sql = "INSERT INTO productos(nombre, precio) VALUES(?, ?)";
+
+    try (Connection conn = ConexionBD.conectar();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+        pstmt.setString(1, producto.getNombre());
+        pstmt.setDouble(2, producto.getPrecio());
+
+        pstmt.executeUpdate();
+        return true;
+
+    } catch (SQLException e) {
+        System.out.println("⚠ Error al agregar producto: " + e.getMessage());
+        return false;
+    }
+}
+    public List<Producto> obtenerProductos() {
+        List<Producto> lista = new ArrayList<>();
+        String sql = "SELECT * FROM productos";
+
+    try (Connection conn = ConexionBD.conectar();
+         Statement stmt = conn.createStatement();
+         ResultSet rs = stmt.executeQuery(sql)) {
+
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String nombre = rs.getString("nombre");
+            double precio = rs.getDouble("precio");
+
+            lista.add(new Producto(id, nombre, precio));
+        }
+
+        } catch (SQLException e) {
+        System.out.println("⚠ Error al obtener productos: " + e.getMessage());
+        }
+
+    return lista;
+}
+     public boolean eliminarProducto(int id) {
+        String sql = "DELETE FROM productos WHERE id = ?";
+
+    try (Connection conn = ConexionBD.conectar();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+        pstmt.setInt(1, id);
+        int filas = pstmt.executeUpdate();
+
+    return filas > 0;
+
+        } catch (SQLException e) {
+        System.out.println("⚠ Error al eliminar producto: " + e.getMessage());
+        return false;
+        }
+}
+    public boolean actualizarProducto(Producto producto) {
+        String sql = "UPDATE productos SET nombre = ?, precio = ? WHERE id = ?";
+
+        try (Connection conn = ConexionBD.conectar();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, producto.getNombre());
+            pstmt.setDouble(2, producto.getPrecio());
+            pstmt.setInt(3, producto.getId());
+
+            int filas = pstmt.executeUpdate();
+            return filas > 0;
+
+        } catch (SQLException e) {
+            System.out.println("⚠ Error al actualizar producto: " + e.getMessage());
+            return false;
+    }
 }
 
 

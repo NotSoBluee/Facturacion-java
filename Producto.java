@@ -1,11 +1,14 @@
 public class Producto {
     private final String nombre;
     private final double precio;
+    private final int id;
 
-    public Producto(String nombre, double precio) {
-        this.nombre = nombre;
-        this.precio = precio;
-    }
+    public Producto(int id, String nombre, double precio) {
+    this.id = id;
+    this.nombre = nombre;
+    this.precio = precio;
+}
+
     @Override
     public String toString() {
         return nombre + " - $" + precio;
@@ -18,4 +21,8 @@ public class Producto {
     public double getPrecio() {
         return precio;
     }
+    public int getId() {
+        return this.id;
+    }
+
 }
